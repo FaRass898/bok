@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookHaven - Твоя 3D Моделька</title>
+    <title>BookHaven - Твоя GLB через Model Viewer</title>
+    <!-- Подключаем model-viewer -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -108,12 +110,13 @@
             transform: translateY(-10px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
-        .book-card canvas {
+        .book-card model-viewer {
             width: 100%;
             max-width: 150px;
             height: 225px;
             border-radius: 5px;
             border: 1px solid #2F3C7E;
+            background-color: transparent;
         }
         .book-card h3 {
             font-size: 20px;
@@ -188,8 +191,8 @@
     </header>
 
     <section class="hero">
-        <h1>Твои 3D Книги, Сука!</h1>
-        <p>Крутятся пиздец как красиво</p>
+        <h1>Твоя GLB Моделька, Сука!</h1>
+        <p>Через Model Viewer, пиздец как просто</p>
         <button>В каталог, нахуй!</button>
     </section>
 
@@ -197,28 +200,52 @@
         <h2>Твои ебаные книги</h2>
         <div class="book-grid">
             <div class="book-card">
-                <canvas id="book1"></canvas>
+                <model-viewer
+                    src="https://drive.google.com/uc?export=download&id=1uwEAJqyKpXfbYmwmjQc4YU_MURyx743u"
+                    alt="Тень ветра"
+                    auto-rotate
+                    camera-controls
+                    style="--poster-color: transparent;"
+                ></model-viewer>
                 <h3>Тень ветра</h3>
                 <p>Карлос Руис Сафон</p>
                 <div class="price">599 руб.</div>
                 <button>В корзину</button>
             </div>
             <div class="book-card">
-                <canvas id="book2"></canvas>
+                <model-viewer
+                    src="https://drive.google.com/uc?export=download&id=1uwEAJqyKpXfbYmwmjQc4YU_MURyx743u"
+                    alt="1984"
+                    auto-rotate
+                    camera-controls
+                    style="--poster-color: transparent;"
+                ></model-viewer>
                 <h3>1984</h3>
                 <p>Джордж Оруэлл</p>
                 <div class="price">450 руб.</div>
                 <button>В корзину</button>
             </div>
             <div class="book-card">
-                <canvas id="book3"></canvas>
+                <model-viewer
+                    src="https://drive.google.com/uc?export=download&id=1uwEAJqyKpXfbYmwmjQc4YU_MURyx743u"
+                    alt="Гарри Поттер"
+                    auto-rotate
+                    camera-controls
+                    style="--poster-color: transparent;"
+                ></model-viewer>
                 <h3>Гарри Поттер</h3>
                 <p>Дж. К. Роулинг</p>
                 <div class="price">799 руб.</div>
                 <button>В корзину</button>
             </div>
             <div class="book-card">
-                <canvas id="book4"></canvas>
+                <model-viewer
+                    src="https://drive.google.com/uc?export=download&id=1uwEAJqyKpXfbYmwmjQc4YU_MURyx743u"
+                    alt="Мастер и Маргарита"
+                    auto-rotate
+                    camera-controls
+                    style="--poster-color: transparent;"
+                ></model-viewer>
                 <h3>Мастер и Маргарита</h3>
                 <p>Михаил Булгаков</p>
                 <div class="price">650 руб.</div>
@@ -235,352 +262,5 @@
             <a href="#">Email</a>
         </p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script>
-        function createBook(canvasId, color) {
-            const canvas = document.getElementById(canvasId);
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-            renderer.setSize(150, 225);
-
-            // Твои вершины из .obj (часть для примера)
-            const vertices = new Float32Array([
-                -1.56646, 3.05398, 0.402511,
-                -1.54621, 3.05169, 0.411266,
-                -1.54826, 3.03346, 0.404454,
-                -1.5644, 3.04022, 0.398608,
-                -1.54373, 3.06769, 0.414952,
-                // Добавь все свои вершины сюда
-            ]);
-
-            // Твои грани (индексы)
-            const indices = new Uint32Array([
-                0, 1, 2,
-                2, 1, 3,
-                1, 4, 3,
-                // Добавь все свои грани сюда
-            ]);
-
-            // Геометрия из твоего .obj
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-            geometry.setIndex(new THREE.BufferAttribute(indices, 1));
-            geometry.computeVertexNormals();
-
-            // Материал с разными цветами
-            const material = new THREE.MeshPhongMaterial({
-                color: color,
-                specular: 0x555555,
-                shininess: 30
-            });
-            const book = new THREE.Mesh(geometry, material);
-            scene.add(book);
-
-            // Свет
-            const light = new THREE.DirectionalLight(0xffffff, 1);
-            light.position.set(5, 5, 5).normalize();
-            scene.add(light);
-  <!DOCTYPE html>
-<html lang="ру">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookHaven - Твоя GLB Моделька</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #F5F5DC;
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        header {
-            background-color: #2F3C7E;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        nav a {
-            margin-left: 25px;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #D4A017;
-        }
-        .hero {
-            text-align: center;
-            padding: 120px 20px;
-            background: url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=1200&auto=format&fit=crop') no-repeat center/cover;
-            margin-top: 70px;
-        }
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 50px;
-            color: #2F3C7E;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            margin-bottom: 15px;
-        }
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 25px;
-        }
-        .hero button {
-            background-color: #D4A017;
-            border: none;
-            padding: 15px 30px;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        .hero button:hover {
-            background-color: #b88c14;
-            transform: scale(1.1);
-        }
-        .catalog {
-            padding: 60px 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .catalog h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
-            text-align: center;
-            margin-bottom: 50px;
-            color: #2F3C7E;
-            text-transform: uppercase;
-        }
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-        }
-        .book-card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        .book-card canvas {
-            width: 100%;
-            max-width: 150px;
-            height: 225px;
-            border-radius: 5px;
-            border: 1px solid #2F3C7E;
-        }
-        .book-card h3 {
-            font-size: 20px;
-            margin: 15px 0 5px;
-            color: #2F3C7E;
-        }
-        .book-card p {
-            font-size: 14px;
-            color: #666;
-        }
-        .book-card .price {
-            font-size: 18px;
-            color: #D4A017;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        .book-card button {
-            background-color: #2F3C7E;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .book-card button:hover {
-            background-color: #D4A017;
-            color: #2F3C7E;
-        }
-        footer {
-            background-color: #2F3C7E;
-            color: white;
-            padding: 25px 30px;
-            text-align: center;
-        }
-        footer a {
-            color: #D4A017;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        footer a:hover {
-            color: white;
-        }
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-            .hero p {
-                font-size: 16px;
-            }
-            nav a {
-                margin-left: 15px;
-                font-size: 14px;
-            }
-            .book-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">BookHaven</div>
-        <nav>
-            <a href="#">Главная</a>
-            <a href="#">Каталог</a>
-            <a href="#">Новинки</a>
-            <a href="#">Скидки</a>
-            <a href="#">О нас</a>
-            <a href="#">Контакты</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Твоя GLB Хуйня, Бери!</h1>
-        <p>Крутится пиздец как красиво</p>
-        <button>В каталог, сука!</button>
-    </section>
-
-    <section class="catalog">
-        <h2>Твои ебаные книги</h2>
-        <div class="book-grid">
-            <div class="book-card">
-                <canvas id="book1"></canvas>
-                <h3>Тень ветра</h3>
-                <p>Карлос Руис Сафон</p>
-                <div class="price">599 руб.</div>
-                <button>В корзину</button>
-            </div>
-            <div class="book-card">
-                <canvas id="book2"></canvas>
-                <h3>1984</h3>
-                <p>Джордж Оруэлл</p>
-                <div class="price">450 руб.</div>
-                <button>В корзину</button>
-            </div>
-            <div class="book-card">
-                <canvas id="book3"></canvas>
-                <h3>Гарри Поттер</h3>
-                <p>Дж. К. Роулинг</p>
-                <div class="price">799 руб.</div>
-                <button>В корзину</button>
-            </div>
-            <div class="book-card">
-                <canvas id="book4"></canvas>
-                <h3>Мастер и Маргарита</h3>
-                <p>Михаил Булгаков</p>
-                <div class="price">650 руб.</div>
-                <button>В корзину</button>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2025 BookHaven. Все права нахуй наши.</p>
-        <p>
-            <a href="#">Telegram</a>
-            <a href="#">VK</a>
-            <a href="#">Email</a>
-        </p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script>
-        function createBook(canvasId, color) {
-            const canvas = document.getElementById(canvasId);
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-            renderer.setSize(150, 225);
-
-            // Загрузка твоего .glb с Google Drive
-            const loader = new THREE.GLTFLoader();
-            loader.load(
-                'https://drive.google.com/uc?export=download&id=1uwEAJqyKpXfbYmwmjQc4YU_MURyx743u',
-                function (gltf) {
-                    const model = gltf.scene;
-                    model.traverse(function (child) {
-                        if (child.isMesh) {
-                            child.material = new THREE.MeshPhongMaterial({
-                                color: color,
-                                specular: 0x555555,
-                                shininess: 30
-                            });
-                        }
-                    });
-                    scene.add(model);
-
-                    // Масштаб и позиция (подогнал под твой .glb)
-                    model.scale.set(1, 1, 1); // Подкрути, если надо
-                    model.position.set(0, 0, 0);
-
-                    // Анимация
-                    function animate() {
-                        requestAnimationFrame(animate);
-                        model.rotation.y += 0.02;
-                        renderer.render(scene, camera);
-                    }
-                    animate();
-                },
-                undefined,
-                function (error) {
-                    console.error('Не могу загрузить твой .glb, сука:', error);
-                }
-            );
-
-            // Свет
-            const light = new THREE.DirectionalLight(0xffffff, 1);
-            light.position.set(5, 5, 5).normalize();
-            scene.add(light);
-            const ambient = new THREE.AmbientLight(0x404040);
-            scene.add(ambient);
-
-            // Камера
-            camera.position.z = 5;
-        }
-
-        // Создаем книги с разными цветами
-        createBook('book1', 0xFFD700); // Золотой
-        createBook('book2', 0xFF6347); // Красный
-        createBook('book3', 0x4682B4); // Синий
-        createBook('book4', 0x32CD32); // Зеленый
-    </script>
 </body>
 </html>
